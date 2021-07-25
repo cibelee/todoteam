@@ -70,24 +70,30 @@
 </template>
 
 <script>
-import testdata from "../src/data/testdata.json";
 import axios from "axios";
 export default {
   name: "App",
-  data() {
-    var item = testdata[0];
-    console.log(item);
-    return {
-      tableData: testdata,
-    };
+  data:()=> {
+    return{
+      tableData: [],
+    }
+    
   },
   methods:{
     helloworld :()=>{
       axios.get('https://localhost:5001/helloworld').then(function(response){
-        alert(response.data);
+        console.log(typeof(response));
+        console.log(response);
       })
     }
   },
+  created: function(){
+    axios.get('https://localhost:5001/helloworld').then(response=>{
+          var test1 = response.data;
+          this.tableData = [test1];
+          console.log(this.tableData);
+    })
+  }
 };
 </script>
 
